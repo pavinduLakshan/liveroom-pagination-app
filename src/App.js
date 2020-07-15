@@ -46,6 +46,7 @@ const Pagination = () => {
     setNItems(e.target.value);
     setNextBtnDisabled(false);
     setNextToken(undefined);
+    setList([])
     setPreviousTokens([]);
   }
 
