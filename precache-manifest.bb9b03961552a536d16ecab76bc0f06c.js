@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "720ff470e0c0e8ce308a53144aa3e850",
+    "revision": "028c5525c58f0533399bdc53b4a8b3d7",
     "url": "/liveroom-pagination-app/index.html"
   },
   {
-    "revision": "be3e656eb18e1594aa67",
+    "revision": "2431b435c7d252a21342",
     "url": "/liveroom-pagination-app/static/css/main.2cde41fd.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/liveroom-pagination-app/static/js/2.b645487a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "be3e656eb18e1594aa67",
-    "url": "/liveroom-pagination-app/static/js/main.e72910fb.chunk.js"
+    "revision": "2431b435c7d252a21342",
+    "url": "/liveroom-pagination-app/static/js/main.abdb56f7.chunk.js"
   },
   {
     "revision": "119b874da172851db90d",
