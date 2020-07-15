@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/liveroom-pagination-app/precache-manifest.ca8b95b5f362dfa311c05d23c8ca1936.js"
+  "/liveroom-pagination-app/precache-manifest.33195b08e5c2d923b7551bb1b5e77b56.js"
 );
 
 self.addEventListener('message', (event) => {
