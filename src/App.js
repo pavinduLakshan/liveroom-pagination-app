@@ -96,9 +96,9 @@ const Pagination = () => {
       </AppBar>
       <Grid container spacing={0} className="main_container">
         <Grid item xs={12} sm={12} md={2} lg={2}></Grid>
-        <Grid item xs={12} sm={12} md={8} lg={8} style={{ marginTop: "1.3%" }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} style={{ marginTop: "1.3%",padding: "2%" }}>
           <div id="btn_container">
-            <p style={{ marginRight: "2%" }}>Rows per page</p>
+            <Typography variant="subtitle1" style={{ marginRight: "2%" }}>Rows per page</Typography>
             <Select value={nItems} disableUnderline onChange={handleNItems}>
               <MenuItem value={3}>3</MenuItem>
               <MenuItem value={5}>5</MenuItem>
@@ -109,6 +109,7 @@ const Pagination = () => {
               onClick={prev}
               className="pagination_btn"
               disableRipple
+              style={{ padding: 0 }}
               disableFocusRipple
               disabled={previousTokens.length === 0}
             >
