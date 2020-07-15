@@ -29,7 +29,7 @@ const ToDoItem = ({ name, date, time, timeout, isFirstRender, isCompleted }) => 
   const classes = useStyles();
 
   return (
-    <Grow in={true} key={name} unmountOnExit={true} style={{ transformOrigin: `0 0 0` }} {...{ timeout: timeout }}>
+    <Grow in={true} unmountOnExit={true} style={{ transformOrigin: `0 0 0` }} {...{ timeout: timeout }}>
       <Paper
         elevation={3}
         className={classes.paper}
