@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import ToDoItem from './ToDoItem';
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
-import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
-import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import React, { useState, useEffect } from "react";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import ToDoItem from "./ToDoItem";
+import AppBar from "@material-ui/core/AppBar";
+import IconButton from "@material-ui/core/IconButton";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForwardIos";
+import ArrowBackIcon from "@material-ui/icons/ArrowBackIos";
+import Toolbar from "@material-ui/core/Toolbar";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import './App.css';
+import "./App.css";
 
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
   appbar: {
-    alignItems: 'center',
-  }
+    alignItems: "center",
+  },
 }));
 
 const themeLight = createMuiTheme({
   palette: {
     background: {
-      default: '#D4E0E4',
+      default: "#D4E0E4",
     },
   },
 });
@@ -45,12 +45,18 @@ const Pagination = () => {
 
   function handleNItems(e) {
     setNItems(e.target.value);
+    setCurrentPage(1);
+    setNextToken(undefined);
+    setPreviousTokens([]);
   }
 
   useEffect(() => {
-    fetch('https://af5xufo4j6.execute-api.us-east-1.amazonaws.com/test/all', {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify({ LastEvaluatedKey: nextToken }),
+    fetch("https://af5xufo4j6.execute-api.us-east-1.amazonaws.com/test/all", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify({
+        LastEvaluatedKey: nextToken,
+        limit: nItems,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -61,7 +67,7 @@ const Pagination = () => {
         setList(data.Items);
       })
       .catch((e) => console.log(e));
-  }, [nextToken]);
+  }, [nextToken, nItems]);
 
   const next = () => {
     setPreviousTokens((c) => [...c, nextToken]);
@@ -83,8 +89,8 @@ const Pagination = () => {
   };
   return (
     <MuiThemeProvider theme={themeLight}>
-    <CssBaseline />
-    
+      <CssBaseline />
+
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
@@ -94,9 +100,9 @@ const Pagination = () => {
       </AppBar>
       <Grid container spacing={0} className="main_container">
         <Grid item xs={12} sm={12} md={2} lg={2}></Grid>
-        <Grid item xs={12} sm={12} md={8} lg={8} style={{ marginTop: '1.3%' }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} style={{ marginTop: "1.3%" }}>
           <div id="btn_container">
-            <p style={{ marginRight: '2%' }}>Rows per page</p>
+            <p style={{ marginRight: "2%" }}>Rows per page</p>
             <Select value={nItems} disableUnderline onChange={handleNItems}>
               <MenuItem value={3}>3</MenuItem>
               <MenuItem value={5}>5</MenuItem>
@@ -125,12 +131,17 @@ const Pagination = () => {
             </IconButton>
           </div>
           {list.map((item, index) => {
-            return <ToDoItem id={Math.random()} timeout={250 * (index + 1)} name={item.PK} date={item.SK} />;
+            return (
+              <ToDoItem
+                id={Math.random()}
+                timeout={250 * (index + 1)}
+                name={item.PK}
+                date={item.SK}
+              />
+            );
           })}
         </Grid>
       </Grid>
-    
- 
     </MuiThemeProvider>
   );
 };
