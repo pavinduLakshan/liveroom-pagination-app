@@ -42,9 +42,9 @@ const Pagination = () => {
   const [nItems, setNItems] = useState(3);
 
   function handleNItems(e) {
-    setNItems(e.target.value);
     setNextToken(undefined);
     setPreviousTokens([]);
+    setNItems(e.target.value);
   }
 
   useEffect(() => {
@@ -58,6 +58,9 @@ const Pagination = () => {
       .then((response) => response.json())
       .then((data) => {
         setNextNextToken(data.LastEvaluatedKey);
+        data.Items.forEach(item =>{
+          item.key = item.PK+nItems
+        })
         setList(data.Items);
       })
       .catch((e) => console.log(e));
@@ -130,8 +133,7 @@ const Pagination = () => {
           {list.map((item, index) => {
             return (
               <ToDoItem
-                key={item.PK}
-                id={Math.random()}
+              key={item.key}
                 timeout={250 * (index + 1)}
                 name={item.PK}
                 date={item.SK}

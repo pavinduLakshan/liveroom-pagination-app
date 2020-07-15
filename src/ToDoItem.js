@@ -2,16 +2,7 @@ import React, { useState } from 'react';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import NotCompletedIcon from '@material-ui/icons/CheckCircleOutline';
-import UndoCompletedIcon from '@material-ui/icons/Undo';
-import MoreVerticalIcon from '@material-ui/icons/MoreVert';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import Grow from '@material-ui/core/Grow';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ToDoItem = ({ name, date, time, timeout, isFirstRender, isCompleted }) => {
+const ToDoItem = ({ name, date, timeout }) => {
   const classes = useStyles();
 
   return (
@@ -34,9 +25,7 @@ const ToDoItem = ({ name, date, time, timeout, isFirstRender, isCompleted }) => 
         elevation={3}
         className={classes.paper}
         style={{
-          color: isCompleted ? 'white' : 'black',
           marginBottom: '2%',
-          backgroundColor: isCompleted ? '#35C706' : 'white',
         }}
       >
         {/* Todo item details */}
