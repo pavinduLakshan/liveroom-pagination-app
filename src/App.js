@@ -46,7 +46,6 @@ const Pagination = () => {
     setNItems(e.target.value);
     setNextBtnDisabled(false);
     setNextToken(undefined);
-    setList([])
     setPreviousTokens([]);
   }
 
@@ -67,7 +66,7 @@ const Pagination = () => {
         setList(data.Items);
       })
       .catch((e) => console.log(e));
-  }, [nextToken, nItems]);
+  }, [nextToken,nItems]);
 
   const next = () => {
     setPreviousTokens((c) => [...c, nextToken]);
@@ -130,6 +129,7 @@ const Pagination = () => {
           {list.map((item, index) => {
             return (
               <ToDoItem
+              key={item.PK}
                 id={Math.random()}
                 timeout={250 * (index + 1)}
                 name={item.PK}
