@@ -39,13 +39,11 @@ const Pagination = () => {
   const [nextToken, setNextToken] = useState(undefined);
   const [nextNextToken, setNextNextToken] = useState();
   const [previousTokens, setPreviousTokens] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [isNextBtnDisabled, setNextBtnDisabled] = useState(false);
   const [nItems, setNItems] = useState(3);
 
   function handleNItems(e) {
     setNItems(e.target.value);
-    setCurrentPage(1);
     setNextBtnDisabled(false);
     setNextToken(undefined);
     setPreviousTokens([]);
@@ -73,13 +71,9 @@ const Pagination = () => {
   const next = () => {
     setPreviousTokens((c) => [...c, nextToken]);
     setNextToken(nextNextToken);
-    setCurrentPage(currentPage + 1);
   };
 
   const prev = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
     if (isNextBtnDisabled) {
       setNextBtnDisabled(false);
     }
@@ -115,11 +109,11 @@ const Pagination = () => {
               className="pagination_btn"
               disableRipple
               disableFocusRipple
-              disabled={currentPage === 1}
+              disabled={previousTokens.length === 0}
             >
               <ArrowBackIcon />
             </IconButton>
-            <p id="current_page">current page: {currentPage}</p>
+            <p id="current_page">current page: {previousTokens.length+1}</p>
             <IconButton
               onClick={next}
               className="pagination_btn"
