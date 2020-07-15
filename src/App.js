@@ -61,7 +61,7 @@ const Pagination = () => {
         setList(data.Items);
       })
       .catch((e) => console.log(e));
-  }, [nextToken]);
+  }, [nextToken,nItems]);
 
   const next = () => {
     setPreviousTokens((c) => [...c, nextToken]);
