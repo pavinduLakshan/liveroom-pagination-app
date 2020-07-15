@@ -39,12 +39,10 @@ const Pagination = () => {
   const [nextToken, setNextToken] = useState(undefined);
   const [nextNextToken, setNextNextToken] = useState();
   const [previousTokens, setPreviousTokens] = useState([]);
-  const [isNextBtnDisabled, setNextBtnDisabled] = useState(false);
   const [nItems, setNItems] = useState(3);
 
   function handleNItems(e) {
     setNItems(e.target.value);
-    setNextBtnDisabled(false);
     setNextToken(undefined);
     setPreviousTokens([]);
   }
@@ -59,14 +57,11 @@ const Pagination = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (!data.LastEvaluatedKey) {
-          setNextBtnDisabled(true);
-        }
         setNextNextToken(data.LastEvaluatedKey);
         setList(data.Items);
       })
       .catch((e) => console.log(e));
-  }, [nextToken,nItems]);
+  }, [nextToken]);
 
   const next = () => {
     setPreviousTokens((c) => [...c, nextToken]);
@@ -74,9 +69,6 @@ const Pagination = () => {
   };
 
   const prev = () => {
-    if (isNextBtnDisabled) {
-      setNextBtnDisabled(false);
-    }
     const copy = [...previousTokens];
     const b = copy.pop();
     setPreviousTokens(copy);
@@ -95,9 +87,18 @@ const Pagination = () => {
       </AppBar>
       <Grid container spacing={0} className="main_container">
         <Grid item xs={12} sm={12} md={2} lg={2}></Grid>
-        <Grid item xs={12} sm={12} md={8} lg={8} style={{ marginTop: "1.3%",padding: "2%" }}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={8}
+          lg={8}
+          style={{ marginTop: "1.3%", padding: "2%" }}
+        >
           <div id="btn_container">
-            <Typography variant="subtitle1" style={{ marginRight: "2%" }}>Rows per page</Typography>
+            <Typography variant="subtitle1" style={{ marginRight: "2%" }}>
+              Rows per page
+            </Typography>
             <Select value={nItems} disableUnderline onChange={handleNItems}>
               <MenuItem value={3}>3</MenuItem>
               <MenuItem value={5}>5</MenuItem>
@@ -114,13 +115,13 @@ const Pagination = () => {
             >
               <ArrowBackIcon />
             </IconButton>
-            <p id="current_page">current page: {previousTokens.length+1}</p>
+            <p id="current_page">current page: {previousTokens.length + 1}</p>
             <IconButton
               onClick={next}
               className="pagination_btn"
               disableRipple
               disableFocusRipple
-              disabled={isNextBtnDisabled}
+              disabled={!nextNextToken}
               style={{ padding: 0 }}
             >
               <ArrowForwardIcon />
@@ -129,7 +130,7 @@ const Pagination = () => {
           {list.map((item, index) => {
             return (
               <ToDoItem
-              key={item.PK}
+                key={item.PK}
                 id={Math.random()}
                 timeout={250 * (index + 1)}
                 name={item.PK}
